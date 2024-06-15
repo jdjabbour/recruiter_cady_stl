@@ -1,12 +1,12 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import pickle
-from pathlib import Path
 
-import yaml
-from yaml.loader import SafeLoader
+
+import src
 
 import streamlit_authenticator as stauth
+
+import src.utils_config
 
 
 st.set_page_config(
@@ -14,15 +14,7 @@ st.set_page_config(
     page_icon="wave"
 )
 
-with open('config.yaml') as file:
-    config = yaml.load(file, Loader=SafeLoader)
-
-# names = ["Peter"]
-# usernames = {"Peter": "parker"}
-
-# file_path = Path(__file__).parent / "hashed_pw.pkl"
-# with file_path.open("rb") as file:
-#     hashed_passwords = pickle.load(file)
+config = src.utils_config.set_config()
 
 
 authenticator = stauth.Authenticate(
@@ -34,18 +26,23 @@ authenticator = stauth.Authenticate(
 )
 
 name, authentication_status, username = authenticator.login()
+api_key = config['credentials']['usernames'][username]['api_key']
+
 
 if authentication_status == False:
     st.error("Username/Password are not Correct")
 
+
 if authentication_status == None:
     st.warning("Please enter your credentials")
 
+
 if authentication_status:
+
 
     authenticator.logout("Logout", "sidebar")
     st.sidebar.title(f"Hello {name}")
-    st.sidebar.success("Select a page above")
+    # st.sidebar.success("Select a page above")
 
     if "my_input" not in st.session_state:
         st.session_state["my_input"] = ""
