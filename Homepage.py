@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
+import pandas as pd
 
 
 import src
@@ -39,11 +40,12 @@ if authentication_status == None:
 
 if authentication_status:
 
-
+    ## Sidebar
     authenticator.logout("Logout", "sidebar")
     st.sidebar.title(f"Hello {name}")
     # st.sidebar.success("Select a page above")
 
+    ## User input
     if "my_input" not in st.session_state:
         st.session_state["my_input"] = ""
 
@@ -54,6 +56,13 @@ if authentication_status:
         st.session_state["my_input"] = my_input
         st.write("You have entered: ", my_input)
 
+    ## File Uploader
+    df = st.file_uploader(label='Upload your file')
+    if df:
+        df = pd.read_csv(df)
+        profs = df.loc[:, "Profile URL"]
+        profs = profs.to_list()
+        print(f"PROFS: {profs}")
 
 # with st.sidebar:
 #     selected = option_menu(
