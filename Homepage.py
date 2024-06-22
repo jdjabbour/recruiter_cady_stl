@@ -27,6 +27,7 @@ authenticator = stauth.Authenticate(
 )
 
 name, authentication_status, username = authenticator.login()
+
 api_key = config['credentials']['usernames'][username]['api_key']
 
 
@@ -62,29 +63,7 @@ if authentication_status:
         df = pd.read_csv(df)
         profs = df.loc[:, "Profile URL"]
         profs = profs.to_list()
+
+
         print(f"PROFS: {profs}")
 
-# with st.sidebar:
-#     selected = option_menu(
-#         # Required
-#         menu_title="Main Menu",
-#         # Required
-#         options=["Home", "Projects", "Contact"],
-
-#         # Optional
-
-#         # Get icons from the bootstrap site.  
-#         # You just need the name of the icon
-#         icons = ["house", "book", "envelope"], 
-#         menu_icon="cast",
-#         default_index=0
-
-#     )
-
-
-# if selected == "Home":
-#     st.title(f"You have selected: {selected}")
-# if selected == "Projects":
-#     st.title(f"You have selected: {selected}")
-# if selected == "Contact":
-#     st.title(f"You have selected: {selected}")
