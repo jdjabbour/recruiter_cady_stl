@@ -1,13 +1,12 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
-
-
-import src
-
 import streamlit_authenticator as stauth
 
-import src.utils_config
+from src.keeper import Keeper
+
+from src.inter_nym_api import nymeria_interface
+from src.utils_config import set_config
 
 
 st.set_page_config(
@@ -15,7 +14,7 @@ st.set_page_config(
     page_icon="wave"
 )
 
-config = src.utils_config.set_config()
+config = set_config()
 
 
 authenticator = stauth.Authenticate(
@@ -28,7 +27,7 @@ authenticator = stauth.Authenticate(
 
 name, authentication_status, username = authenticator.login()
 
-api_key = config['credentials']['usernames'][username]['api_key']
+
 
 
 if authentication_status == False:
@@ -41,21 +40,23 @@ if authentication_status == None:
 
 if authentication_status:
 
+    Keeper(username, name, authentication_status)
+
     ## Sidebar
     authenticator.logout("Logout", "sidebar")
     st.sidebar.title(f"Hello {name}")
     # st.sidebar.success("Select a page above")
 
     ## User input
-    if "my_input" not in st.session_state:
-        st.session_state["my_input"] = ""
+    # if "my_input" not in st.session_state:
+    #     st.session_state["my_input"] = ""
 
-    my_input = st.text_input("Input a text here", st.session_state["my_input"])
-    submit = st.button("Submit")
+    # my_input = st.text_input("Input a text here", st.session_state["my_input"])
+    # submit = st.button("Submit")
 
-    if submit:
-        st.session_state["my_input"] = my_input
-        st.write("You have entered: ", my_input)
+    # if submit:
+    #     st.session_state["my_input"] = my_input
+    #     st.write("You have entered: ", my_input)
 
     ## File Uploader
     df = st.file_uploader(label='Upload your file')
@@ -64,6 +65,7 @@ if authentication_status:
         profs = df.loc[:, "Profile URL"]
         profs = profs.to_list()
 
+        nymeria_interface(df)
 
         print(f"PROFS: {profs}")
 

@@ -4,5 +4,6 @@ venv/
 
 *.yaml
 
-
 creds.*
+
+notes.md
