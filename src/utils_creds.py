@@ -5,7 +5,7 @@ from yaml.loader import SafeLoader
 from src.keeper import Keeper
 
 class Creds():
-    def __init__(self) -> None:
+    def __init__(self):
         self.config = self.set_config()
         self.username = Keeper().username
 
@@ -18,3 +18,4 @@ class Creds():
     
     def get_nym_key(self):
         key = self.config['credentials']['usernames'][self.username]['api_key']
+        return key

@@ -1,7 +1,7 @@
 
 from pprint import pprint
 
-import src
+from src.utils_call_api import Call_Api
 
 
 class Nymeria_Enrich_Linkedin_Profile():
@@ -24,19 +24,20 @@ class Nymeria_Enrich_Linkedin_Profile():
         Driver Merthod
         """
         for prof in self.profiles:
-            prof = self.clean_profile(prof)
-            prof = self.add_profile_query(prof)
-            url = self.build_url(prof)
-            self.headers = self.build_headers()
-            api_res = self.call_nym_api(url)
-            st_code = self.get_status_code(api_res)
-            if st_code == 200:
-                api_res = self.jsonify_results(api_res)
-                self.payload.append(api_res)
-            else:
-                print(f"NO: {url}")
+            print(prof)
+        #     prof = self.clean_profile(prof)
+        #     prof = self.add_profile_query(prof)
+        #     url = self.build_url(prof)
+        #     self.headers = self.build_headers()
+        #     api_res = self.call_nym_api(url)
+        #     st_code = self.get_status_code(api_res)
+        #     if st_code == 200:
+        #         api_res = self.jsonify_results(api_res)
+        #         self.payload.append(api_res)
+        #     else:
+        #         print(f"NO: {url}")
 
-        return self.payload
+        # return self.payload
             
 
     def clean_profile(self, prof):
@@ -60,7 +61,7 @@ class Nymeria_Enrich_Linkedin_Profile():
     
     def call_nym_api(self, url):
         try:
-            api_res = src.Call_Api(self.method_get, url, self.headers, self.payload).call_api()
+            api_res = Call_Api(self.method_get, url, self.headers, self.payload).call_api()
             return api_res
         except Exception as e:
             print(f"NYMERIA API ERROR: {e}")

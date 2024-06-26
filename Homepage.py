@@ -54,7 +54,7 @@ if authentication_status:
         profs = df.loc[:, "Profile URL"]
         profs = profs.to_list()
 
-        nymeria_interface(profs)
+        contact_res = nymeria_interface(profs)
 
 
 
