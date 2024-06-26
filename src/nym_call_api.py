@@ -13,9 +13,8 @@ class Nymeria_Enrich_Linkedin_Profile():
         self.profiles = profs  # List
         self.api_key = api_key
         self.headers = None
-        self.payload = {}
+        self.payload = []
         self.base_url = "https://www.nymeria.io/api/v4/person/enrich"
-        # self.method_post = 'POST'
         self.method_get = 'GET'
 
 
@@ -29,14 +28,11 @@ class Nymeria_Enrich_Linkedin_Profile():
             url = self.build_url(prof)
             self.headers = self.build_headers()
             api_res = self.call_nym_api(url)
-            pprint(api_res)
-            # st_code = self.get_status_code(api_res)
-            # if st_code == 200:
-            #     api_res = self.jsonify_results(api_res)
-            #     self.payload.append(api_res)
-            # else:
-            #     print(f"NO: {url}")
-            #     print(f"KEY: {self.api_key}")
+            st_code = self.get_status_code(api_res)
+            if st_code == 200 or st_code == '200':
+                api_res = self.jsonify_results(api_res)
+                self.payload.append(api_res)
+
 
         return self.payload
             
@@ -62,7 +58,8 @@ class Nymeria_Enrich_Linkedin_Profile():
     
     def call_nym_api(self, url):
         try:
-            api_res = Call_Api(self.method_get, url, self.headers, self.payload).call_api()
+            payload = {}
+            api_res = Call_Api(self.method_get, url, self.headers, payload).call_api()
             return api_res
         except Exception as e:
             print(f"CALL NYMERIA API ERROR: {e}")

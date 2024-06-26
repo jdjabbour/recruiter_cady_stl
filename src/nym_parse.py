@@ -10,6 +10,7 @@ class Parse_Contact_Info():
 
     def parse_linkedin_contact_info(self):
         for prof in self.payload:
+            self.results = {}
             self.get_full_name(prof)
             self.get_emails(prof)
             self.get_mobile_phone_number(prof)
@@ -44,14 +45,15 @@ class Parse_Contact_Info():
     def scrub_phone_numbers(self):
         phone_numbs = []
         ph_numbs = self.results['ph_nums']
-        for ph_numb in ph_numbs:
-            if len(ph_numb) == 11:
-                ph_numb = f"{ph_numb[0]}-{ph_numb[1:4]}-{ph_numb[4:7]}-{ph_numb[7:]}"
-                phone_numbs.append(ph_numb)
-            elif len(ph_numb) == 10:
-                ph_numb = f"{ph_numb[0:3]}-{ph_numb[3:6]}-{ph_numb[6:]}"
-                phone_numbs.append(ph_numb)
-            else:
-                phone_numbs.append(ph_numb)
+        if ph_numbs != None:
+            for ph_numb in ph_numbs:
+                if len(ph_numb) == 11:
+                    ph_numb = f"{ph_numb[0]}-{ph_numb[1:4]}-{ph_numb[4:7]}-{ph_numb[7:]}"
+                    phone_numbs.append(ph_numb)
+                elif len(ph_numb) == 10:
+                    ph_numb = f"{ph_numb[0:3]}-{ph_numb[3:6]}-{ph_numb[6:]}"
+                    phone_numbs.append(ph_numb)
+                else:
+                    phone_numbs.append(ph_numb)
         self.results['ph_nums'] = phone_numbs
         return self.results
