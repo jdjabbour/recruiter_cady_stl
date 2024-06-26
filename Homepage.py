@@ -1,9 +1,6 @@
 import streamlit as st
-from streamlit_option_menu import option_menu
 import pandas as pd
 import streamlit_authenticator as stauth
-
-from src.keeper import Keeper
 
 from src.inter_nym_api import nymeria_interface
 from src.utils_config import set_config
@@ -40,7 +37,6 @@ if authentication_status == None:
 
 if authentication_status:
 
-    Keeper(username, name, authentication_status)
 
     ## Sidebar
     authenticator.logout("Logout", "sidebar")
@@ -54,7 +50,7 @@ if authentication_status:
         profs = df.loc[:, "Profile URL"]
         profs = profs.to_list()
 
-        contact_res = nymeria_interface(profs)
+        contact_res = nymeria_interface(profs, username)
 
 
 
