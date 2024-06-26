@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import streamlit_authenticator as stauth
 
-from src.inter_nym_api import nymeria_interface
+from src.nym_api_inter import nymeria_interface
 from src.utils_config import set_config
 
 
