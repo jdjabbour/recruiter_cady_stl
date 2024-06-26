@@ -1,4 +1,4 @@
 
 
-def nymeria_interface():
+def nymeria_interface(profs):
     pass

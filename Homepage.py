@@ -45,18 +45,7 @@ if authentication_status:
     ## Sidebar
     authenticator.logout("Logout", "sidebar")
     st.sidebar.title(f"Hello {name}")
-    # st.sidebar.success("Select a page above")
 
-    ## User input
-    # if "my_input" not in st.session_state:
-    #     st.session_state["my_input"] = ""
-
-    # my_input = st.text_input("Input a text here", st.session_state["my_input"])
-    # submit = st.button("Submit")
-
-    # if submit:
-    #     st.session_state["my_input"] = my_input
-    #     st.write("You have entered: ", my_input)
 
     ## File Uploader
     df = st.file_uploader(label='Upload your file')
@@ -65,7 +54,7 @@ if authentication_status:
         profs = df.loc[:, "Profile URL"]
         profs = profs.to_list()
 
-        nymeria_interface(df)
+        nymeria_interface(profs)
 
-        print(f"PROFS: {profs}")
+
 
