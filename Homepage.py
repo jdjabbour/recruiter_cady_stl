@@ -1,3 +1,5 @@
+
+from pprint import pprint
 import streamlit as st
 import pandas as pd
 import streamlit_authenticator as stauth
@@ -51,6 +53,12 @@ if authentication_status:
         profs = profs.to_list()
 
         contact_res = nymeria_interface(profs, username)
+        if contact_res:
+            for con in contact_res:
+                st.write(con['full_name'])
+        else:
+            st.write('!!!NONETYPE!!!')
+
 
 
 
