@@ -5,7 +5,6 @@ import json
 import streamlit as st
 import pandas as pd
 import streamlit_authenticator as stauth
-from awesome_table import AwesomeTable
 
 from src.nym_api_inter import nymeria_interface
 from src.utils_config import set_config
@@ -59,10 +58,16 @@ if authentication_status:
         
         if contact_res:
             for con in contact_res:
-                st.write(f"Full Name: {con['full_name']}")
+                st.divider()
+                st.write(f"Full Name: ")
+                st.write(f"{con['full_name']}")
                 st.write("Phone Numbers: ")
                 for numbs in con['ph_nums']:
-                    st.write(f"    {numbs}")
+                    st.write(f"{numbs}")
+                st.write("Emails: ")
+                for email in con['emails']:
+                    st.write(f"{email[1]}")
+
         else:
             st.write('!!!NONETYPE!!!')
 
