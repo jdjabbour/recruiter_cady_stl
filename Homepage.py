@@ -11,7 +11,7 @@ from src.utils_config import set_config
 
 
 st.set_page_config(
-    page_title="Multi-App",
+    page_title="RecruiterCaddy",
     page_icon="wave"
 )
 
